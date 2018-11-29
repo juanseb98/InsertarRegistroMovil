@@ -13,11 +13,14 @@ import insertarDatos.vista.IngresarDatos;
 import insertarDatos.modelo.ConeccionBD;
 import insertarDatos.vista.IngresarMarca;
 import insertarDatos.vista.IngresarProcesador;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -187,21 +190,24 @@ public class ControladorAniadir implements ActionListener {
             MARCA = obtenerIdMarca(ventana.getMarca());
             NOMBRE = ventana.getTxtNombre();
             FOTO = ventana.getTxtFoto();
+            PROCESADOR = obtenerIdProcesador(ventana.getcbProcesador());
+            HUELLA = ventana.getCbHuella();
+            ACELEROMETRO = ventana.getCbAcelerometro();
+            GIROSCOPIO = ventana.getCbGiroscopio();
+            BATERIA = Integer.parseInt(ventana.getTxtBateria());
             TAMANNO = ventana.getTxtTamanio();
             PESO = Integer.parseInt(ventana.getTxtPeso());
             PULGADAS = Double.parseDouble(ventana.getTxtPulgadas());
             RESOLUCION = ventana.getTxtResolucion();
             ALMACENAMIENTO = Integer.parseInt(ventana.getTxtAlmacenamiento());
             RAM = Integer.parseInt(ventana.getTxtRam());
-            PROCESADOR = obtenerIdProcesador(ventana.getcbProcesador());
-            HUELLA = ventana.getCbHuella();
-            ACELEROMETRO = ventana.getCbAcelerometro();
-            GIROSCOPIO = ventana.getCbGiroscopio();
-            BATERIA = Integer.parseInt(ventana.getTxtBateria());
             datosCorreecto = true;
 
-        } catch (NullPointerException | NumberFormatException e) {
+        } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(ventana, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(ventana, "Los campos peso, pulgadas,almacenamiento, ram y bateria son numericos", "Error", JOptionPane.ERROR_MESSAGE);
+            marcarCasillas();
         }
         return datosCorreecto;
     }
@@ -216,6 +222,15 @@ public class ControladorAniadir implements ActionListener {
         } catch (SQLException ex) {
             //Logger.getLogger(ControladorAniadir.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void marcarCasillas() {
+        ventana.getBateria().setBackground(Color.red);
+        ventana.getAlmacenamiento().setBackground(Color.red);
+        ventana.getPeso().setBackground(Color.red);
+        ventana.getPulgadas().setBackground(Color.red);
+        ventana.getRam().setBackground(Color.red);
+
     }
 
 }

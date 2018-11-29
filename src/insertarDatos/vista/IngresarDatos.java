@@ -6,6 +6,7 @@ import insertarDatos.controlador.ControladorCbMarca;
 import insertarDatos.controlador.ControladorCbProcesador;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 /**
  * Pantalla encargada de gestionar la base de datos añadiendo nuevo movil y
@@ -43,6 +44,11 @@ public class IngresarDatos extends javax.swing.JFrame {
         //Creamos el controlador de los componentes de nuestra ventana y lo añadimos
         ControladorAniadir controladorComponentes = new ControladorAniadir(this);
         controlador(controladorComponentes);
+
+        //insertamos la barra de menu
+        BarraMenu mb = new BarraMenu(this);
+        mb.controlador(controladorComponentes);
+        this.setJMenuBar(mb);
     }
 
     /**
@@ -151,6 +157,26 @@ public class IngresarDatos extends javax.swing.JFrame {
 
     public JComboBox getCbProcesador() {
         return cbProcesador;
+    }
+
+    public JTextField getPeso() {
+        return txtPeso;
+    }
+
+    public JTextField getPulgadas() {
+        return txtPulgadas;
+    }
+
+    public JTextField getAlmacenamiento() {
+        return txtAlmacenamiento;
+    }
+
+    public JTextField getRam() {
+        return txtRam;
+    }
+
+    public JTextField getBateria() {
+        return txtBateria;
     }
 
     /**
@@ -299,10 +325,10 @@ public class IngresarDatos extends javax.swing.JFrame {
         getContentPane().add(txtFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 275, -1));
         getContentPane().add(txtTamanio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 150, -1));
         getContentPane().add(txtPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 60, -1));
-        getContentPane().add(txtPulgadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 64, -1));
+        getContentPane().add(txtPulgadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 60, -1));
         getContentPane().add(txtREsolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 150, -1));
-        getContentPane().add(txtAlmacenamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 67, -1));
-        getContentPane().add(txtRam, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 70, -1));
+        getContentPane().add(txtAlmacenamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 60, -1));
+        getContentPane().add(txtRam, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 60, -1));
 
         cbProcesador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(cbProcesador, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 236, -1));
@@ -318,12 +344,12 @@ public class IngresarDatos extends javax.swing.JFrame {
         getContentPane().add(btNewProcesador, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 380, -1, 30));
 
         btNewMarca.setText("Nueva marca");
-        getContentPane().add(btNewMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 145, -1));
+        getContentPane().add(btNewMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 145, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 510, -1));
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 510, 10));
 
         btVerImagen.setText("Ver imagen");
-        getContentPane().add(btVerImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, -1, -1));
+        getContentPane().add(btVerImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, -1, -1));
 
         btCancelar.setText("Cancelar");
         getContentPane().add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 550, 190, -1));
