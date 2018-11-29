@@ -36,6 +36,7 @@ public class ControladorAniadir implements ActionListener {
     private static final String CONSULTA_PRO = "select MODELO from PROCESADOR;";
     private static final String CONSULTA_ID = "select MAX(ID) from MOVILES;";
     private static final String CONSULTA_MARCA = "select NOMBRE from MARCA;";
+    private static final String INSERT_MOVIL = "INSERT INTO MOVILES(ID,MARCA,NOMBRE,FOTO,TAMANNO,PESO,PULGADAS,RESOLUCION,ALMACENAMIENTO,RAM,PROCESADOR,HUELLA,ACELEROMETRO,GIROSCOPIO,BATERIA) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private String NOMBRE, FOTO, TAMANNO, RESOLUCION;
     private int ID, MARCA, PESO, ALMACENAMIENTO, RAM, PROCESADOR, HUELLA, ACELEROMETRO, GIROSCOPIO, BATERIA;
@@ -152,9 +153,7 @@ public class ControladorAniadir implements ActionListener {
 
     private void insertar() {
         try {
-            String prepareInst = "INSERT INTO MOVILES(ID,MARCA,NOMBRE,FOTO,TAMANNO,PESO,PULGADAS,RESOLUCION,ALMACENAMIENTO,"
-                    + "RAM,PROCESADOR,HUELLA,ACELEROMETRO,GIROSCOPIO,BATERIA) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement prepareStament = bd.getPrepareStament(prepareInst);
+            PreparedStatement prepareStament = bd.getPrepareStament(INSERT_MOVIL);
 
             prepareStament.setInt(1, ID);
             prepareStament.setInt(2, MARCA);
