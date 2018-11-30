@@ -6,9 +6,14 @@
 package insertarDatos.vista;
 
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URL;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,6 +39,7 @@ public class BarraMenu extends JMenuBar {
         iAyuda.setMnemonic('A');
         mAyuda.add(iAyuda);
 
+        cargarAyuda();
     }
 
     public void controlador(ActionListener crt) {
@@ -57,6 +63,26 @@ public class BarraMenu extends JMenuBar {
 
     public JMenuItem getJMenuItem() {
         return iAyuda;
+    }
+
+    private void cargarAyuda() {
+        try {
+            // Carga el fichero de ayuda
+            File fichero = new File("src/insertarDatos/help/help.hs");
+            URL hsURL = fichero.toURI().toURL();
+
+            // Crea el HelpSet y el HelpBroker
+            HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
+            HelpBroker hb = helpset.createHelpBroker();
+
+            // Pone ayuda a item de menu al pulsar F1. mntmIndice es el JMenuitem
+            hb.enableHelpOnButton(iAyuda, "manual", helpset);
+            hb.enableHelpKey(principal.getContentPane(), "manual", helpset);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(principal, "Error al cargar la ayuda: " + e, "Error al abrir la ayuda", JOptionPane.ERROR_MESSAGE);
+
+        }
     }
 
 }

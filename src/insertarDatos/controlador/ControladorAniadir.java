@@ -11,6 +11,7 @@ import insertarDatos.controlador.procesador.ControladorAniadirProcesador;
 import insertarDatos.controlador.procesador.ControladorVentanainsertarProcesador;
 import insertarDatos.vista.IngresarDatos;
 import insertarDatos.modelo.ConeccionBD;
+import insertarDatos.vista.BarraMenu;
 import insertarDatos.vista.IngresarMarca;
 import insertarDatos.vista.IngresarProcesador;
 import java.awt.Color;
@@ -93,6 +94,8 @@ public class ControladorAniadir implements ActionListener {
                 break;
             case "cancelar":
                 System.exit(0);
+                break;
+            case "ayuda":
                 break;
         }
 
