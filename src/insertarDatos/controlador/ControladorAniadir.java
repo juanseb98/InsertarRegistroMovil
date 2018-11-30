@@ -255,6 +255,9 @@ public class ControladorAniadir implements ActionListener {
             ALMACENAMIENTO = Integer.parseInt(ventana.getTxtAlmacenamiento());
             RAM = Integer.parseInt(ventana.getTxtRam());
 
+            if (NOMBRE.equals("") || FOTO.equals("") || TAMANNO.equals("") || RESOLUCION.equals("")) {
+                throw new NullPointerException();
+            }
             datosCorrectos = true;//en caso de llgar hasta aqui sin fallo aseguramos que se han exportado bien
 
         } catch (NullPointerException e) {
