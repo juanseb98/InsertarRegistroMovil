@@ -1,5 +1,6 @@
 package insertarDatos.modelo;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,22 +19,30 @@ import javax.swing.JOptionPane;
 public class ConeccionBD {
 //ACORTADOR DE URL https://bitly.com/
 
-    private String URL_BD = "jdbc:sqlite:bd/comparadorMovil.db";
+    private final String DATA_BASE = "bd/comparadorMovil.db";
+    private String URL_BD = "jdbc:sqlite:";
     private static final String DRIVER_SQLITE = "org.sqlite.JDBC";
     private Connection conexion = null;
     Statement sentencia;
 
     public ConeccionBD() {
         try {
+            File baseDeDatos = new File(DATA_BASE);
+            if (!baseDeDatos.exists()) {//Comprobamos que la base de datos exista
+                throw new Exception("Base de datos no encontrada");
+            }
 
             Class.forName(DRIVER_SQLITE);
-            conexion = DriverManager.getConnection(URL_BD);
+            conexion = DriverManager.getConnection(URL_BD + DATA_BASE);
             sentencia = conexion.createStatement();
 
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "No se pudo conectar a la base de datos", "Error en la conección", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(ConeccionBD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {//En caso de no existir se notificara y se cerrara el programa
+            JOptionPane.showMessageDialog(null, "No se pudo Encontrar la base de datos", "Error en la conección", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
     }
 
