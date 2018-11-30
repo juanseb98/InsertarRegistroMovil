@@ -140,7 +140,7 @@ public class IngresarDatos extends javax.swing.JFrame {
     }
 
     public String getTxtResolucion() {
-        return txtREsolucion.getText().toString();
+        return txtResolucion.getText().toString();
     }
 
     public String getTxtRam() {
@@ -226,6 +226,21 @@ public class IngresarDatos extends javax.swing.JFrame {
         cbProcesador.addItem(pro);
     }
 
+    public void limpiar() {
+        txtNombre.setText("");
+        txtFoto.setText("");
+        txtTamanio.setText("");
+        txtPeso.setText("");
+        txtPulgadas.setText("");
+        txtResolucion.setText("");
+        txtAlmacenamiento.setText("");
+        txtRam.setText("");
+        cbHuella.setSelected(false);
+        cbAcelerometro.setSelected(false);
+        cbGiroscopio.setSelected(false);
+        txtBateria.setText("");
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -252,7 +267,7 @@ public class IngresarDatos extends javax.swing.JFrame {
         txtTamanio = new javax.swing.JTextField();
         txtPeso = new javax.swing.JTextField();
         txtPulgadas = new javax.swing.JTextField();
-        txtREsolucion = new javax.swing.JTextField();
+        txtResolucion = new javax.swing.JTextField();
         txtAlmacenamiento = new javax.swing.JTextField();
         txtRam = new javax.swing.JTextField();
         cbProcesador = new javax.swing.JComboBox<>();
@@ -326,7 +341,7 @@ public class IngresarDatos extends javax.swing.JFrame {
         getContentPane().add(txtTamanio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 150, -1));
         getContentPane().add(txtPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 60, -1));
         getContentPane().add(txtPulgadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 60, -1));
-        getContentPane().add(txtREsolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 150, -1));
+        getContentPane().add(txtResolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 150, -1));
         getContentPane().add(txtAlmacenamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 60, -1));
         getContentPane().add(txtRam, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 60, -1));
 
@@ -427,8 +442,8 @@ public class IngresarDatos extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtPulgadas;
-    private javax.swing.JTextField txtREsolucion;
     private javax.swing.JTextField txtRam;
+    private javax.swing.JTextField txtResolucion;
     private javax.swing.JTextField txtTamanio;
     private imageView.ImageView verImagen;
     // End of variables declaration//GEN-END:variables

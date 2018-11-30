@@ -1,17 +1,11 @@
 package insertarDatos.controlador;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import insertarDatos.controlador.marca.ControladorAniadirMarca;
 import insertarDatos.controlador.marca.ControladorVentanainsertarMarca;
 import insertarDatos.controlador.procesador.ControladorAniadirProcesador;
 import insertarDatos.controlador.procesador.ControladorVentanainsertarProcesador;
 import insertarDatos.vista.IngresarDatos;
 import insertarDatos.modelo.ConeccionBD;
-import insertarDatos.vista.BarraMenu;
 import insertarDatos.vista.IngresarMarca;
 import insertarDatos.vista.IngresarProcesador;
 import java.awt.Color;
@@ -20,29 +14,38 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
+ * Clase encargada de controlar los componentes de la pantalla tales como los
+ * botones
  *
- * @author sastian
+ * @author Juan Sebastián González Sánchez
  */
 public class ControladorAniadir implements ActionListener {
 
+//instanciamos las clases que utilizaremos
     private ConeccionBD bd;
     private IngresarDatos ventana;
 
+//Declaracion de constantes.
     private static final String CONSULTA_PRO = "select MODELO from PROCESADOR;";
     private static final String CONSULTA_ID = "select MAX(ID) from MOVILES;";
     private static final String CONSULTA_MARCA = "select NOMBRE from MARCA;";
     private static final String INSERT_MOVIL = "INSERT INTO MOVILES(ID,MARCA,NOMBRE,FOTO,TAMANNO,PESO,PULGADAS,RESOLUCION,ALMACENAMIENTO,RAM,PROCESADOR,HUELLA,ACELEROMETRO,GIROSCOPIO,BATERIA) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
+    //declaracion de variables.
     private String NOMBRE, FOTO, TAMANNO, RESOLUCION;
     private int ID, MARCA, PESO, ALMACENAMIENTO, RAM, PROCESADOR, HUELLA, ACELEROMETRO, GIROSCOPIO, BATERIA;
     private double PULGADAS;
 
+    /**
+     * Constructor del controlador en el que se inicializa el acceso a la base
+     * de datos.
+     *
+     * @param ventana Ventana principal
+     */
     public ControladorAniadir(IngresarDatos ventana) {
         bd = new ConeccionBD();
         this.ventana = ventana;
@@ -50,13 +53,14 @@ public class ControladorAniadir implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String boton = e.getActionCommand();
+        String boton = e.getActionCommand();//Recogemos el nombre de la accion que hemos recibido
 
         switch (boton) {
             case "insertar":
                 if (obtenerDatos()) {
-                    insertar();
+                    insertar(); // TODO falta comprobar que el movil ya no exista
                     actualizarID();
+                    ventana.limpiar();
                 }
 
                 break;
@@ -101,6 +105,12 @@ public class ControladorAniadir implements ActionListener {
 
     }
 
+    /**
+     * Metodo encargado de inicializar las marcas
+     *
+     * @param bd se le pasa una coneccion a una base de datos
+     * @throws SQLException
+     */
     public void iniciarMarca(ConeccionBD bd) throws SQLException {
         ResultSet resultado;
         //realizamos la consulta del procesador a la base de datos y guardamos los datos
@@ -114,6 +124,12 @@ public class ControladorAniadir implements ActionListener {
         resultado.close();
     }
 
+    /**
+     * Metodo encargado de inicializar los procesadores
+     *
+     * @param bd se le pasa una coneccion a una base de datos
+     * @throws SQLException
+     */
     public void iniciarProcesadores(ConeccionBD bd) throws SQLException {
         ResultSet resultado;
         //realizamos la consulta del procesador a la base de datos y guardamos los datos
@@ -127,6 +143,13 @@ public class ControladorAniadir implements ActionListener {
         resultado.close();
     }
 
+    /**
+     * Metodo encargado de optener el Id de la marca que esta seleccionado en el
+     * comboBox
+     *
+     * @param marca Nombre de la marca seleccionado
+     * @return Devuelve un entero con el id de la marca
+     */
     private int obtenerIdMarca(String marca) {
         int id = 0;
         try {
@@ -139,6 +162,13 @@ public class ControladorAniadir implements ActionListener {
         return id;
     }
 
+    /**
+     * Metodo encargado de optener el Id del procesador que esta seleccionado en
+     * el comboBox
+     *
+     * @param procesador Nombre del procesador seleccionado
+     * @return Devuelve un entero con el id del procesador
+     */
     private int obtenerIdProcesador(String procesador) {
         try {
             int id = 0;
@@ -154,6 +184,9 @@ public class ControladorAniadir implements ActionListener {
         return 0;
     }
 
+    /**
+     * Metodo encargado de realizar la insercion del nuevo movil
+     */
     private void insertar() {
         try {
             PreparedStatement prepareStament = bd.getPrepareStament(INSERT_MOVIL);
@@ -176,14 +209,24 @@ public class ControladorAniadir implements ActionListener {
 
             prepareStament.executeUpdate();
             prepareStament.close();
+            //En claso de haberse realizado correctamente saldra un aviso de movil añadido correctamente
             JOptionPane.showMessageDialog(ventana, "Se ha añadido movil correctamente", "Añadido", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException ex) {
+            //En caso que falle se notificara al usuario que no se pudo realizar el insert del nuevo movil
             JOptionPane.showMessageDialog(ventana, "No se ha podido insertar movil", "Error", JOptionPane.ERROR_MESSAGE);
 
         }
     }
 
+    /**
+     * Metodo encargado de obtener el valor de los campos de texto de la ventana
+     * inicial y decir si los ha podido obtener correctamente.
+     *
+     * @return devuelve un boolean a true si se han obtenido todos los datos
+     * correctamente o a false si algun dato no ha podido ser obtenido
+     * correctamente.
+     */
     private boolean obtenerDatos() {
         boolean datosCorreecto = false;
         try {
@@ -203,22 +246,32 @@ public class ControladorAniadir implements ActionListener {
             RESOLUCION = ventana.getTxtResolucion();
             ALMACENAMIENTO = Integer.parseInt(ventana.getTxtAlmacenamiento());
             RAM = Integer.parseInt(ventana.getTxtRam());
-            datosCorreecto = true;
+
+            datosCorreecto = true;//en caso de llgar hasta aqui sin fallo aseguramos que se han exportado bien
 
         } catch (NullPointerException e) {
+            //En caso de que algun dato este vacio se indicara al usuario que todos los campos son obligatorios
             JOptionPane.showMessageDialog(ventana, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException e) {
+            //En caso de fallo por conversion a numero indicaremos que los campos numericos son incorrectos
             JOptionPane.showMessageDialog(ventana, "Los campos peso, pulgadas,almacenamiento, ram y bateria son numericos", "Error", JOptionPane.ERROR_MESSAGE);
-            marcarCasillas();
+
+            marcarCasillas();//marcamos las casillas que son numericas
         }
         return datosCorreecto;
     }
 
+    /**
+     * Al insertar en la base de datos necesitamos que el id del movil aumente 1
+     * ya que el usuario no ha de conocer que id lleva por lo que consultamos y
+     * establecemos el nuevo id.
+     */
     private void actualizarID() {
         try {
+            //consulta el id mas alto
             ResultSet resultado = bd.realizarConsulta(CONSULTA_ID);
             if (resultado.next()) {
-                ventana.setTxtId(resultado.getInt(1) + 1);
+                ventana.setTxtId(resultado.getInt(1) + 1);//establece en el textField id el nuevo valor
             }
             resultado.close();
         } catch (SQLException ex) {
@@ -226,6 +279,9 @@ public class ControladorAniadir implements ActionListener {
         }
     }
 
+    /**
+     * Metodo que pintara de rojo los text field que sean numericos
+     */
     private void marcarCasillas() {
         ventana.getBateria().setBackground(Color.red);
         ventana.getAlmacenamiento().setBackground(Color.red);
