@@ -24,13 +24,13 @@ public class ControladorVentanainsertar extends WindowAdapter {
 
     public ControladorVentanainsertar(IngresarDatos vent) {
         ventana = vent;
+        bd = new ConeccionBD();//Creamos la coneccion a la base de datos
     }
 
     @Override
     public void windowOpened(WindowEvent e) {
 
         try {
-            bd = new ConeccionBD();//Creamos la coneccion a la base de datos
             iniciarMarcas();//iniciamos primero el Combobox de marca
             iniciarProcesadores();//iniciamos el combobox de procesador
             consultarID();//Consultaos el id del ultimo movil y ponermos el id del nuevo en la pantalla principal

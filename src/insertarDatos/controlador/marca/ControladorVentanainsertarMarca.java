@@ -10,19 +10,22 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
+ * Clase encargada de inicializar el Id de la nueva marca a ingresar al abrir la
+ * ventana
  *
- * @author sastian
+ * @author Juan Sebastián González Sánchez
  */
 public class ControladorVentanainsertarMarca extends WindowAdapter {
 
-    private final IngresarMarca ventana;
-    private final ControladorAniadir controlador;
+    private IngresarMarca ventana;
+    private ControladorAniadir controlador;
     private ConeccionBD bd;
     private static final String CONSULTA_ID = "select MAX(ID_MARCA) from MARCA;";
 
     public ControladorVentanainsertarMarca(IngresarMarca vent, ControladorAniadir ctr) {
         ventana = vent;
         controlador = ctr;
+        bd = new ConeccionBD();
     }
 
     @Override
@@ -30,7 +33,7 @@ public class ControladorVentanainsertarMarca extends WindowAdapter {
 
         ResultSet resultado;
         try {
-            bd = new ConeccionBD();
+
             //realizamos una cosulta a la base de datos para obtener el ultimo ID usado
             resultado = bd.realizarConsulta(CONSULTA_ID);
             while (resultado.next()) {
@@ -47,7 +50,7 @@ public class ControladorVentanainsertarMarca extends WindowAdapter {
     @Override
     public void windowClosed(WindowEvent e) {
         try {
-            controlador.iniciarMarca(bd);
+            controlador.iniciarMarca(bd); //AL cerrarse la ventana de añadir marca se actualiza el combobox en la ventana principal
         } catch (SQLException ex) {
             //Logger.getLogger(ControladorVentanainsertarProcesador.class.getName()).log(Level.SEVERE, null, ex);
         }
