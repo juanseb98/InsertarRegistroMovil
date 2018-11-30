@@ -1,24 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package insertarDatos.vista;
 
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 
 /**
+ * Clase que implementa la ventana de añadir nuevo procesador
  *
- * @author sastian
+ * @author Juan Sebastián González Sánchez
  */
 public class IngresarProcesador extends javax.swing.JPanel {
 
     private JDialog contenedor;
 
-    /**
-     * Creates new form IngresarProcesador
-     */
     public IngresarProcesador(JDialog contenedor) {
         this.contenedor = contenedor;
         initComponents();
@@ -50,12 +43,15 @@ public class IngresarProcesador extends javax.swing.JPanel {
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Metodos propios">
+    /**
+     * Metodo que se encarga de cerrar la ventana de insertar Marca
+     */
     public void cerrarVentana() {
         contenedor.dispose();
     }
 
     /**
-     * Metodo que limpia los campos
+     * Metodo que limpia todos los campos de la ventana
      */
     public void limpiar() {
         txtModelo.setText("");
@@ -65,6 +61,11 @@ public class IngresarProcesador extends javax.swing.JPanel {
     // </editor-fold>
 
 //<---- controlador ---->
+    /**
+     * Metodo para añadir un controlador a los componentes de la pantalla
+     *
+     * @param ctr controlador action listener
+     */
     public void controlador(ActionListener ctr) {
         btInsertar.addActionListener(ctr);
         btInsertar.setActionCommand("insertar");

@@ -28,8 +28,8 @@ public class BarraMenu extends JMenuBar {
         add(mArchivo);
         iSalir.setMnemonic('S');
         iInsertar.setMnemonic('I');
-        mArchivo.add(iSalir);
         mArchivo.add(iInsertar);
+        mArchivo.add(iSalir);
 
         add(mAyuda);
         iAyuda.setMnemonic('A');

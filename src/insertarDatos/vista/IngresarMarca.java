@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package insertarDatos.vista;
 
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 
 /**
+ * Clase que implementa la ventana de añadir nueva marca
  *
- * @author sastian
+ * @author Juan Sebastián González Sánchez
  */
 public class IngresarMarca extends javax.swing.JPanel {
 
@@ -19,7 +15,7 @@ public class IngresarMarca extends javax.swing.JPanel {
     public IngresarMarca(JDialog contenedor) {
         this.contenedor = contenedor;
         initComponents();
-        txtId.setEnabled(false);
+        txtId.setEnabled(false);//Desactivamos el TextField de Id para que no se peuda modificar
     }
 
 // <editor-fold defaultstate="collapsed" desc="Getters">
@@ -39,12 +35,15 @@ public class IngresarMarca extends javax.swing.JPanel {
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Metodos propios">
+    /**
+     * Metodo que se encarga de cerrar la ventana de insertar Marca
+     */
     public void cerrarVentana() {
         contenedor.dispose();
     }
 
     /**
-     * Metodo que limpia los campos
+     * Metodo que limpia todos los campos de la ventana
      */
     public void limpiar() {
         txtMarca.setText("");
@@ -52,6 +51,11 @@ public class IngresarMarca extends javax.swing.JPanel {
     // </editor-fold>
 
 //<---- controlador ---->
+    /**
+     * Metodo para añadir un controlador a los componentes de la pantalla
+     *
+     * @param ctr controlador action listener
+     */
     public void controlador(ActionListener ctr) {
         btInsertar.addActionListener(ctr);
         btInsertar.setActionCommand("insertar");

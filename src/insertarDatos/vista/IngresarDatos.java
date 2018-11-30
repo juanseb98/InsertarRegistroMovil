@@ -16,8 +16,6 @@ import javax.swing.JTextField;
  */
 public class IngresarDatos extends javax.swing.JFrame {
 
-    private String marca, procesador;
-
     /**
      * Creates new form IngresarDatos
      */
@@ -25,6 +23,7 @@ public class IngresarDatos extends javax.swing.JFrame {
         initComponents();
         marca = new String();
         procesador = new String();
+        setTitle("Insertar nuevo Movil");
 
         //configuramos la ventana para que aparezca en el centro de nuestra pantalla y le añadimos un controlador
         this.setLocationRelativeTo(null);
@@ -87,6 +86,12 @@ public class IngresarDatos extends javax.swing.JFrame {
     }
 
 //<---- Getters ---->
+    /**
+     * Metodo que comprueba el estado de los checkbox y si esta seleccionado
+     * devuelve 1 si no devuelve 0
+     *
+     * @return devuelve 1 si esta seleccionado y 0 si no lo esta
+     */
     public int getCbAcelerometro() {
         int ret = 0;
         if (cbAcelerometro.isSelected()) {
@@ -95,6 +100,12 @@ public class IngresarDatos extends javax.swing.JFrame {
         return ret;
     }
 
+    /**
+     * Metodo que comprueba el estado de los checkbox y si esta seleccionado
+     * devuelve 1 si no devuelve 0
+     *
+     * @return devuelve 1 si esta seleccionado y 0 si no lo esta
+     */
     public int getCbGiroscopio() {
         int ret = 0;
         if (cbGiroscopio.isSelected()) {
@@ -103,6 +114,12 @@ public class IngresarDatos extends javax.swing.JFrame {
         return ret;
     }
 
+    /**
+     * Metodo que comprueba el estado de los checkbox ysi esta seleccionado
+     * devuelve 1 si no devuelve 0
+     *
+     * @return devuelve 1 si esta seleccionado y 0 si no lo esta
+     */
     public int getCbHuella() {
         int ret = 0;
         if (cbHuella.isSelected()) {
@@ -112,43 +129,43 @@ public class IngresarDatos extends javax.swing.JFrame {
     }
 
     public String getTxtAlmacenamiento() {
-        return txtAlmacenamiento.getText().toString();
+        return txtAlmacenamiento.getText();
     }
 
     public String getTxtBateria() {
-        return txtBateria.getText().toString();
+        return txtBateria.getText();
     }
 
     public String getTxtFoto() {
-        return txtFoto.getText().toString();
+        return txtFoto.getText();
     }
 
     public String getTxtId() {
-        return txtId.getText().toString();
+        return txtId.getText();
     }
 
     public String getTxtNombre() {
-        return txtNombre.getText().toString();
+        return txtNombre.getText();
     }
 
     public String getTxtPeso() {
-        return txtPeso.getText().toString();
+        return txtPeso.getText();
     }
 
     public String getTxtPulgadas() {
-        return txtPulgadas.getText().toString();
+        return txtPulgadas.getText();
     }
 
     public String getTxtResolucion() {
-        return txtResolucion.getText().toString();
+        return txtResolucion.getText();
     }
 
     public String getTxtRam() {
-        return txtRam.getText().toString();
+        return txtRam.getText();
     }
 
     public String getTxtTamanio() {
-        return txtTamanio.getText().toString();
+        return txtTamanio.getText();
     }
 
     public JComboBox getCbMarca() {
@@ -226,6 +243,10 @@ public class IngresarDatos extends javax.swing.JFrame {
         cbProcesador.addItem(pro);
     }
 
+    /**
+     * Metodo encargado de limpiar los valores de la pantalla una vez insertado
+     * el movil
+     */
     public void limpiar() {
         txtNombre.setText("");
         txtFoto.setText("");
@@ -239,6 +260,8 @@ public class IngresarDatos extends javax.swing.JFrame {
         cbAcelerometro.setSelected(false);
         cbGiroscopio.setSelected(false);
         txtBateria.setText("");
+
+        txtNombre.requestFocus();//Se le da focus al campo nombre
     }
 
     @SuppressWarnings("unchecked")
@@ -289,122 +312,90 @@ public class IngresarDatos extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabeld.setText("ID");
-        getContentPane().add(jLabeld, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        getContentPane().add(jLabeld, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         jLabel2.setText("Marca");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jLabel1.setText("Nombre");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
         jLabel3.setText("Foto");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         jLabel4.setText("Tamaño");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jLabel5.setText("Peso");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
         jLabel6.setText("Pulgadas");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
         jLabel7.setText("Resolucion");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
 
         jLabel8.setText("Almacenamiento");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         jLabel9.setText("RAM");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, -1));
 
         jLabel10.setText("Procesador");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
         jLabel11.setText("Huella");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, -1, -1));
 
         jLabel12.setText("Acelerometro");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
         jLabel13.setText("Giroscopio");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
 
         jLabel14.setText("Bateria");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
-        getContentPane().add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 46, -1));
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
+        getContentPane().add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 46, -1));
 
         jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBoxMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 158, -1));
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 275, -1));
-        getContentPane().add(txtFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 275, -1));
-        getContentPane().add(txtTamanio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 150, -1));
-        getContentPane().add(txtPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 60, -1));
-        getContentPane().add(txtPulgadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 60, -1));
-        getContentPane().add(txtResolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 150, -1));
-        getContentPane().add(txtAlmacenamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 60, -1));
-        getContentPane().add(txtRam, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 60, -1));
+        getContentPane().add(jComboBoxMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 158, -1));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 275, -1));
+        getContentPane().add(txtFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 275, -1));
+        getContentPane().add(txtTamanio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 150, -1));
+        getContentPane().add(txtPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 60, -1));
+        getContentPane().add(txtPulgadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 60, -1));
+        getContentPane().add(txtResolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 150, -1));
+        getContentPane().add(txtAlmacenamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 60, -1));
+        getContentPane().add(txtRam, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 60, -1));
 
         cbProcesador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cbProcesador, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 236, -1));
-        getContentPane().add(cbHuella, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 430, -1, -1));
-        getContentPane().add(cbAcelerometro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 450, -1, -1));
-        getContentPane().add(cbGiroscopio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 470, -1, -1));
-        getContentPane().add(txtBateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 510, 63, -1));
+        getContentPane().add(cbProcesador, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 236, -1));
+        getContentPane().add(cbHuella, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
+        getContentPane().add(cbAcelerometro, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 440, -1, -1));
+        getContentPane().add(cbGiroscopio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, -1, -1));
+        getContentPane().add(txtBateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 500, 63, -1));
 
         btInsertar.setText("Añadir movil");
-        getContentPane().add(btInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 550, 191, -1));
+        getContentPane().add(btInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 540, 191, -1));
 
         btNewProcesador.setText("Nuevo procesador");
-        getContentPane().add(btNewProcesador, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 380, -1, 30));
+        getContentPane().add(btNewProcesador, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, -1, 30));
 
         btNewMarca.setText("Nueva marca");
-        getContentPane().add(btNewMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 145, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 510, -1));
-        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 510, 10));
+        getContentPane().add(btNewMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 145, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 530, -1));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 530, 10));
 
         btVerImagen.setText("Ver imagen");
-        getContentPane().add(btVerImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, -1, -1));
+        getContentPane().add(btVerImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, -1, -1));
 
         btCancelar.setText("Cancelar");
-        getContentPane().add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 550, 190, -1));
-        getContentPane().add(verImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, -1, -1));
+        getContentPane().add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, 190, -1));
+        getContentPane().add(verImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 150, -1, -1));
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 530, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * Lanzador de la ventana
-     *
-     * @param args
-     */
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IngresarDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IngresarDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IngresarDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IngresarDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new IngresarDatos().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
@@ -447,5 +438,5 @@ public class IngresarDatos extends javax.swing.JFrame {
     private javax.swing.JTextField txtTamanio;
     private imageView.ImageView verImagen;
     // End of variables declaration//GEN-END:variables
-
+    private String marca, procesador;
 }
