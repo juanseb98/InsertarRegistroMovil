@@ -9,6 +9,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 
 /**
  * Barra de menu de opciones de nuestra pantalla
@@ -20,6 +21,7 @@ public class BarraMenu extends JMenuBar {
     private JMenu mArchivo, mAyuda;
     private JMenuItem iSalir, iInsertar, iAyuda;
     private IngresarDatos principal;
+    private JSeparator separador;
 
     public BarraMenu(IngresarDatos principal) {
         this.principal = principal;
@@ -29,6 +31,7 @@ public class BarraMenu extends JMenuBar {
         iSalir.setMnemonic('S');
         iInsertar.setMnemonic('I');
         mArchivo.add(iInsertar);
+        mArchivo.add(separador);
         mArchivo.add(iSalir);
 
         add(mAyuda);
@@ -54,11 +57,7 @@ public class BarraMenu extends JMenuBar {
         iInsertar = new JMenuItem("Insertar");
         iSalir = new JMenuItem("Salir");
         iAyuda = new JMenuItem("Ayuda");
-    }
-    //Método llamado al cargar la ayuda.
-
-    public JMenuItem getJMenuItem() {
-        return iAyuda;
+        separador = new JSeparator();
     }
 
     private void cargarAyuda() {
