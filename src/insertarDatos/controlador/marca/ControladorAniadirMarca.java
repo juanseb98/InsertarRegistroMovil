@@ -40,8 +40,8 @@ public class ControladorAniadirMarca implements ActionListener {
         try {
             if (insertar()) {
                 JOptionPane.showMessageDialog(panel, "Se ha añadido marca correctamente", "Añadido", JOptionPane.INFORMATION_MESSAGE);
-//                actualizarID(); // en caso de no uerer cerrar el panel automaticamente descomentar
-//                panel.limpiar(); // en caso de no uerer cerrar el panel automaticamente descomentar
+//                actualizarID(); // en caso de no querer cerrar el panel automaticamente descomentar
+//                panel.limpiar(); // en caso de no querer cerrar el panel automaticamente descomentar
                 panel.cerrarVentana();
             }
 

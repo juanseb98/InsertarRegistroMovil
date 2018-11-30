@@ -50,7 +50,7 @@ public class ControladorVentanainsertarMarca extends WindowAdapter {
     @Override
     public void windowClosed(WindowEvent e) {
         try {
-            controlador.iniciarMarca(bd); //AL cerrarse la ventana de añadir marca se actualiza el combobox en la ventana principal
+            controlador.iniciarMarca(bd); //Al cerrarse la ventana de añadir marca se actualiza el combobox en la ventana principal
         } catch (SQLException ex) {
             //Logger.getLogger(ControladorVentanainsertarProcesador.class.getName()).log(Level.SEVERE, null, ex);
         }

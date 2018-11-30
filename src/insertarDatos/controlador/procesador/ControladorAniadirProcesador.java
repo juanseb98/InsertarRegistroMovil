@@ -5,7 +5,6 @@
  */
 package insertarDatos.controlador.procesador;
 
-import insertarDatos.controlador.marca.ControladorAniadirMarca;
 import insertarDatos.modelo.ConeccionBD;
 import insertarDatos.vista.IngresarProcesador;
 import java.awt.event.ActionEvent;
@@ -13,8 +12,6 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,8 +41,8 @@ public class ControladorAniadirProcesador implements ActionListener {
         try {
             if (insertar()) {
                 JOptionPane.showMessageDialog(panel, "Se ha añadido Procesador correctamente", "Añadido", JOptionPane.INFORMATION_MESSAGE);
-                //actualizarID();
-                //panel.limpiar();
+                //actualizarID(); // en caso de no querer cerrar el panel automaticamente descomentar
+                //panel.limpiar(); // en caso de no querer cerrar el panel automaticamente descomentar
                 panel.cerrarVentana();
             }
 
@@ -57,6 +54,12 @@ public class ControladorAniadirProcesador implements ActionListener {
 
     }
 
+    /**
+     * Metodo encargado de actualizar la Id para el nuevo procesador. Se
+     * encuentra en desuso ya que cierro automaticamente la ventana
+     *
+     * @throws SQLException
+     */
     private void actualizarID() throws SQLException {
 
         ResultSet resultado = bd.realizarConsulta(CONSULTA_ID);
@@ -67,6 +70,15 @@ public class ControladorAniadirProcesador implements ActionListener {
 
     }
 
+    /**
+     * Metodo encargado de insertar el nuevo procesador en la base de datos
+     *
+     * @return Devuelve un boolean true en caso de haber completado
+     * correctamente y un false en caso de error
+     * @throws SQLException
+     * @throws Exception Excepcion encargada de notificar que ya esta creado el
+     * procesador
+     */
     private boolean insertar() throws SQLException, Exception {
         boolean correcto = false;
         if (obtenerDatos()) {
@@ -81,13 +93,19 @@ public class ControladorAniadirProcesador implements ActionListener {
                 prepareStament.executeUpdate();
                 prepareStament.close();
                 correcto = true;
-            } else {
+            } else {//En caso de que el procesador exista en la base de datos mandara un mensaje notificandolo
                 throw new Exception("El procesador " + MODELO + " ya existe");
             }
         }
         return correcto;
     }
 
+    /**
+     * Metodo encargado de obtener los datos de la ventana añadir procesador
+     *
+     * @return Devuelve un boolean a true si pudo obtener los datos
+     * correctamente o false si ha surgido algun problema
+     */
     private boolean obtenerDatos() {
         boolean datosCorrecto = false;
         try {
@@ -108,6 +126,13 @@ public class ControladorAniadirProcesador implements ActionListener {
         return datosCorrecto;
     }
 
+    /**
+     * Metodo que se encarga de comprobar si el procesador ya existe en la base
+     * de datos
+     *
+     * @return Devuelve un boolean a true si existe y un boolean a false si no
+     * existe
+     */
     private boolean comprobarExistente() {
         boolean existe = false;
 
@@ -118,8 +143,9 @@ public class ControladorAniadirProcesador implements ActionListener {
                     existe = true;
                 }
             }
+            resultado.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ControladorAniadirMarca.class.getName()).log(Level.SEVERE, null, ex);
+            //excepción no utilizada
         }
         return existe;
     }

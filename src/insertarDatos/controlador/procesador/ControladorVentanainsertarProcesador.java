@@ -1,10 +1,5 @@
 package insertarDatos.controlador.procesador;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import insertarDatos.controlador.ControladorAniadir;
 import insertarDatos.modelo.ConeccionBD;
 import insertarDatos.vista.IngresarProcesador;
@@ -15,14 +10,17 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
+ * Clase encargada de inicializar el Id del nuevo procesador a ingresar al abrir
+ * la ventana
  *
- * @author sastian
+ * @author Juan Sebastián González Sánchez
  */
 public class ControladorVentanainsertarProcesador extends WindowAdapter {
 
     private final IngresarProcesador ventana;
     private final ControladorAniadir controlador;
     private ConeccionBD bd;
+
     private static final String CONSULTA_ID = "select MAX(ID_PROCESADOR) from PROCESADOR;";
 
     public ControladorVentanainsertarProcesador(IngresarProcesador vent, ControladorAniadir ctr) {
@@ -53,7 +51,7 @@ public class ControladorVentanainsertarProcesador extends WindowAdapter {
     @Override
     public void windowClosed(WindowEvent e) {
         try {
-            controlador.iniciarProcesadores(bd);
+            controlador.iniciarProcesadores(bd);//Al cerrarse la ventana de añadir procesador se actualiza el combobox en la ventana principal
         } catch (SQLException ex) {
             //Logger.getLogger(ControladorVentanainsertarProcesador.class.getName()).log(Level.SEVERE, null, ex);
         }
