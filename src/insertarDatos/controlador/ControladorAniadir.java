@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -57,7 +59,8 @@ public class ControladorAniadir implements ActionListener {
 
         switch (boton) {
             case "insertar":
-                if (obtenerDatos()) {
+
+                if (obtenerDatos()) {//obteniene los datos de la ventana y si estan todos continua
                     insertar(); // TODO falta comprobar que el movil ya no exista
                     actualizarID();
                     ventana.limpiar();
@@ -65,44 +68,57 @@ public class ControladorAniadir implements ActionListener {
 
                 break;
             case "procesador":
-                JDialog ventanaProcesador = new JDialog(ventana, "Añadir Procesador");
-                IngresarProcesador panel = new IngresarProcesador(ventanaProcesador);
-                ControladorAniadirProcesador ctr = new ControladorAniadirProcesador(panel);
-                ventanaProcesador.addWindowListener(new ControladorVentanainsertarProcesador(panel, this));
-
-                panel.controlador(ctr);
-
-                ventanaProcesador.add(panel);
-
-                ventanaProcesador.pack();
-                ventanaProcesador.setModal(true);
-                ventanaProcesador.setVisible(true);
+                abrirInsertarProcesador();
                 break;
             case "marca":
-                JDialog ventanaMarca = new JDialog(ventana, "Añadir Marca");
-                IngresarMarca p = new IngresarMarca(ventanaMarca);
-                ControladorAniadirMarca ctrMarca = new ControladorAniadirMarca(p);
-                ventanaMarca.addWindowListener(new ControladorVentanainsertarMarca(p, this));
-
-                p.controlador(ctrMarca);
-
-                ventanaMarca.add(p);
-
-                ventanaMarca.pack();
-                ventanaMarca.setModal(true);
-                ventanaMarca.setVisible(true);
+                abrirInsertarMarca();
                 break;
             case "imagen":
-                ventana.setVerImagen(ventana.getTxtFoto());
-
+                ventana.setVerImagen(ventana.getTxtFoto()); // al pulsar ver imagen se actualizara nuestro bean con la nueva foto
                 break;
             case "cancelar":
                 System.exit(0);
                 break;
-            case "ayuda":
-                break;
         }
 
+    }
+
+    /**
+     * Metodo encargado de crear un nuevo JDialog en el que aparecerá la
+     * pantalla para añadir una nueva marca
+     */
+    private void abrirInsertarMarca() {
+        JDialog ventanaMarca = new JDialog(ventana, "Añadir Marca");
+        IngresarMarca p = new IngresarMarca(ventanaMarca);
+        ControladorAniadirMarca ctrMarca = new ControladorAniadirMarca(p);
+        ventanaMarca.addWindowListener(new ControladorVentanainsertarMarca(p, this));
+
+        p.controlador(ctrMarca);
+
+        ventanaMarca.add(p);
+
+        ventanaMarca.pack();
+        ventanaMarca.setModal(true);
+        ventanaMarca.setVisible(true);
+    }
+
+    /**
+     * Metodo encargado de crear un nuevo JDialog en el que aparecerá la
+     * pantalla para añadir un nuevo procesador
+     */
+    private void abrirInsertarProcesador() {
+        JDialog ventanaProcesador = new JDialog(ventana, "Añadir Procesador");
+        IngresarProcesador panel = new IngresarProcesador(ventanaProcesador);
+        ControladorAniadirProcesador ctr = new ControladorAniadirProcesador(panel);
+        ventanaProcesador.addWindowListener(new ControladorVentanainsertarProcesador(panel, this));
+
+        panel.controlador(ctr);
+
+        ventanaProcesador.add(panel);
+
+        ventanaProcesador.pack();
+        ventanaProcesador.setModal(true);
+        ventanaProcesador.setVisible(true);
     }
 
     /**
@@ -150,15 +166,12 @@ public class ControladorAniadir implements ActionListener {
      * @param marca Nombre de la marca seleccionado
      * @return Devuelve un entero con el id de la marca
      */
-    private int obtenerIdMarca(String marca) {
+    private int obtenerIdMarca(String marca) throws SQLException {
         int id = 0;
-        try {
-            ResultSet resultado = bd.realizarConsulta("select ID_MARCA from MARCA where NOMBRE='" + marca + "';");
-            id = resultado.getInt("ID_MARCA");
-            resultado.close();
-        } catch (SQLException ex) {
-            //Logger.getLogger(ControladorAniadir.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ResultSet resultado = bd.realizarConsulta("select ID_MARCA from MARCA where NOMBRE='" + marca + "';");
+        id = resultado.getInt("ID_MARCA");
+        resultado.close();
+
         return id;
     }
 
@@ -169,19 +182,16 @@ public class ControladorAniadir implements ActionListener {
      * @param procesador Nombre del procesador seleccionado
      * @return Devuelve un entero con el id del procesador
      */
-    private int obtenerIdProcesador(String procesador) {
-        try {
-            int id = 0;
-            ResultSet resultado = bd.realizarConsulta("select ID_PROCESADOR from PROCESADOR where MODELO = '" + procesador + "';");
-            while (resultado.next()) {
-                id = resultado.getInt("ID_PROCESADOR");
-            }
-            resultado.close();
-            return id;
-        } catch (SQLException ex) {
-            //Logger.getLogger(ControladorAniadir.class.getName()).log(Level.SEVERE, null, ex);
+    private int obtenerIdProcesador(String procesador) throws SQLException {
+
+        int id = 0;
+        ResultSet resultado = bd.realizarConsulta("select ID_PROCESADOR from PROCESADOR where MODELO = '" + procesador + "';");
+        while (resultado.next()) {
+            id = resultado.getInt("ID_PROCESADOR");
         }
-        return 0;
+        resultado.close();
+        return id;
+
     }
 
     /**
@@ -228,7 +238,7 @@ public class ControladorAniadir implements ActionListener {
      * correctamente.
      */
     private boolean obtenerDatos() {
-        boolean datosCorreecto = false;
+        boolean datosCorrectos = false;
         try {
 
             ID = Integer.parseInt(ventana.getTxtId());
@@ -247,7 +257,7 @@ public class ControladorAniadir implements ActionListener {
             ALMACENAMIENTO = Integer.parseInt(ventana.getTxtAlmacenamiento());
             RAM = Integer.parseInt(ventana.getTxtRam());
 
-            datosCorreecto = true;//en caso de llgar hasta aqui sin fallo aseguramos que se han exportado bien
+            datosCorrectos = true;//en caso de llgar hasta aqui sin fallo aseguramos que se han exportado bien
 
         } catch (NullPointerException e) {
             //En caso de que algun dato este vacio se indicara al usuario que todos los campos son obligatorios
@@ -255,10 +265,11 @@ public class ControladorAniadir implements ActionListener {
         } catch (NumberFormatException e) {
             //En caso de fallo por conversion a numero indicaremos que los campos numericos son incorrectos
             JOptionPane.showMessageDialog(ventana, "Los campos peso, pulgadas,almacenamiento, ram y bateria son numericos", "Error", JOptionPane.ERROR_MESSAGE);
-
             marcarCasillas();//marcamos las casillas que son numericas
+        } catch (SQLException ex) {
+            //No nos saltara esta excepcion
         }
-        return datosCorreecto;
+        return datosCorrectos;
     }
 
     /**
@@ -275,7 +286,7 @@ public class ControladorAniadir implements ActionListener {
             }
             resultado.close();
         } catch (SQLException ex) {
-            //Logger.getLogger(ControladorAniadir.class.getName()).log(Level.SEVERE, null, ex);
+            //No nos saltara esta excepcion
         }
     }
 
