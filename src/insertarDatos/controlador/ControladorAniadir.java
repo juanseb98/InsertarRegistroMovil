@@ -97,6 +97,8 @@ public class ControladorAniadir implements ActionListener {
 
         ventanaMarca.pack();
         ventanaMarca.setModal(true);
+        ventanaMarca.setResizable(false);
+        ventanaMarca.setLocationRelativeTo(null);
         ventanaMarca.setVisible(true);
     }
 
@@ -116,6 +118,8 @@ public class ControladorAniadir implements ActionListener {
 
         ventanaProcesador.pack();
         ventanaProcesador.setModal(true);
+        ventanaProcesador.setResizable(false);
+        ventanaProcesador.setLocationRelativeTo(null);
         ventanaProcesador.setVisible(true);
     }
 

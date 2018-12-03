@@ -21,6 +21,7 @@ public class IngresarDatos extends javax.swing.JFrame {
      */
     public IngresarDatos() {
         initComponents();
+        this.setResizable(false);
         marca = new String();
         procesador = new String();
         setTitle("Insertar nuevo Movil");
