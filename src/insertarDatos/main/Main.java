@@ -3,7 +3,7 @@ package insertarDatos.main;
 import insertarDatos.vista.IngresarDatos;
 
 /**
- * Arrancador de la aplicacion
+ * Ejecutador de la aplicacion
  *
  * @author Juan Sebastián González Sánchez
  */

@@ -201,28 +201,32 @@ public class ControladorAniadir implements ActionListener {
      */
     private void insertar() {
         try {
-            PreparedStatement prepareStament = bd.getPrepareStament(INSERT_MOVIL);
+            if (!existe()) {
+                PreparedStatement prepareStament = bd.getPrepareStament(INSERT_MOVIL);
 
-            prepareStament.setInt(1, ID);
-            prepareStament.setInt(2, MARCA);
-            prepareStament.setString(3, NOMBRE);
-            prepareStament.setString(4, FOTO);
-            prepareStament.setString(5, TAMANNO);
-            prepareStament.setInt(6, PESO);
-            prepareStament.setDouble(7, PULGADAS);
-            prepareStament.setString(8, RESOLUCION);
-            prepareStament.setInt(9, ALMACENAMIENTO);
-            prepareStament.setInt(10, RAM);
-            prepareStament.setInt(11, PROCESADOR);
-            prepareStament.setInt(12, HUELLA);
-            prepareStament.setInt(13, ACELEROMETRO);
-            prepareStament.setInt(14, GIROSCOPIO);
-            prepareStament.setInt(15, BATERIA);
+                prepareStament.setInt(1, ID);
+                prepareStament.setInt(2, MARCA);
+                prepareStament.setString(3, NOMBRE);
+                prepareStament.setString(4, FOTO);
+                prepareStament.setString(5, TAMANNO);
+                prepareStament.setInt(6, PESO);
+                prepareStament.setDouble(7, PULGADAS);
+                prepareStament.setString(8, RESOLUCION);
+                prepareStament.setInt(9, ALMACENAMIENTO);
+                prepareStament.setInt(10, RAM);
+                prepareStament.setInt(11, PROCESADOR);
+                prepareStament.setInt(12, HUELLA);
+                prepareStament.setInt(13, ACELEROMETRO);
+                prepareStament.setInt(14, GIROSCOPIO);
+                prepareStament.setInt(15, BATERIA);
 
-            prepareStament.executeUpdate();
-            prepareStament.close();
-            //En claso de haberse realizado correctamente saldra un aviso de movil añadido correctamente
-            JOptionPane.showMessageDialog(ventana, "Se ha añadido movil correctamente", "Añadido", JOptionPane.INFORMATION_MESSAGE);
+                prepareStament.executeUpdate();
+                prepareStament.close();
+                //En claso de haberse realizado correctamente saldra un aviso de movil añadido correctamente
+                JOptionPane.showMessageDialog(ventana, "Se ha añadido movil correctamente", "Añadido", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(ventana, "El movil " + NOMBRE + " ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
 
         } catch (SQLException ex) {
             //En caso que falle se notificara al usuario que no se pudo realizar el insert del nuevo movil
@@ -307,4 +311,27 @@ public class ControladorAniadir implements ActionListener {
 
     }
 
+    /**
+     * Metodo que se encarga de comprobar si la marca ya existe en la base de
+     * datos
+     *
+     * @return Devuelve un boolean a true si existe y un boolean a false si no
+     * existe
+     */
+    private boolean existe() {
+        boolean existe = false;
+
+        try {
+            ResultSet resultado = bd.realizarConsulta("select NOMBRE from MOVILES;");
+            while (resultado.next() && !existe) {
+                if (NOMBRE.equalsIgnoreCase(resultado.getString("NOMBRE"))) {
+                    existe = true;
+                }
+            }
+            resultado.close();
+        } catch (SQLException ex) {
+            //excepción no utilizada
+        }
+        return existe;
+    }
 }
