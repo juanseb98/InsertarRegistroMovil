@@ -9,8 +9,11 @@ import insertarDatos.modelo.ConeccionBD;
 import insertarDatos.vista.IngresarMarca;
 import insertarDatos.vista.IngresarProcesador;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,6 +79,14 @@ public class ControladorAniadir implements ActionListener {
                 break;
             case "cancelar":
                 System.exit(0);
+                break;
+            case "manual":
+                try {
+                    File path = new File("carpeta/tuArchivo.pdf");
+                    Desktop.getDesktop().open(path);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 break;
         }
 

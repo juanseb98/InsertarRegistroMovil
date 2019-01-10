@@ -19,7 +19,7 @@ import javax.swing.JSeparator;
 public class BarraMenu extends JMenuBar {
 
     private JMenu mArchivo, mAyuda;
-    private JMenuItem iSalir, iInsertar, iAyuda;
+    private JMenuItem iSalir, iInsertar, iAyuda, iManual;
     private IngresarDatos principal;
     private JSeparator separador;
 
@@ -37,6 +37,8 @@ public class BarraMenu extends JMenuBar {
         add(mAyuda);
         iAyuda.setMnemonic('A');
         mAyuda.add(iAyuda);
+        iManual.setMnemonic('M');
+        mAyuda.add(iManual);
 
         cargarAyuda();
     }
@@ -48,6 +50,8 @@ public class BarraMenu extends JMenuBar {
         iInsertar.setActionCommand("insertar");
         iAyuda.addActionListener(crt);
         iAyuda.setActionCommand("ayuda");
+        iManual.addActionListener(crt);
+        iManual.setActionCommand("manual");
 
     }
 
@@ -57,6 +61,7 @@ public class BarraMenu extends JMenuBar {
         iInsertar = new JMenuItem("Insertar");
         iSalir = new JMenuItem("Salir");
         iAyuda = new JMenuItem("Ayuda");
+        iManual = new JMenuItem("Manual");
         separador = new JSeparator();
     }
 
