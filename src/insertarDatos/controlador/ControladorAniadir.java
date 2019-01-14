@@ -82,7 +82,7 @@ public class ControladorAniadir implements ActionListener {
                 break;
             case "manual":
                 try {
-                    File path = new File("carpeta/tuArchivo.pdf");
+                    File path = new File("Manual/Manual_de_usuario.pdf");
                     Desktop.getDesktop().open(path);
                 } catch (IOException ex) {
                     ex.printStackTrace();
